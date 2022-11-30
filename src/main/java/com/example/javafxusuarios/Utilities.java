@@ -56,4 +56,9 @@ public class Utilities {
 
 
     }
+    public static void deleteQuery(String name){
+        Statement stmt = null;
+        String query = "DELETE FROM alumno " +
+                "WHERE nombre LIKE '" + name +"'";
+    }
 }

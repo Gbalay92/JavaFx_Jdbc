@@ -18,6 +18,7 @@ import java.net.URL;
 
 import java.util.ResourceBundle;
 
+import static com.example.javafxusuarios.Utilities.deleteQuery;
 import static com.example.javafxusuarios.Utilities.saveQuery;
 
 public class UsersViewController implements Initializable{
@@ -49,6 +50,10 @@ public class UsersViewController implements Initializable{
         userView.setItems(users);
 
 
+        filtradoDeValores();
+    }
+
+    private void filtradoDeValores() {
         FilteredList<Usuario> filter= new FilteredList<>(users, b -> true);
 
         filterText.textProperty().addListener((observable, oldValue, newValue)->{
@@ -79,8 +84,14 @@ public class UsersViewController implements Initializable{
 
     public void onButtonSaveClick(ActionEvent actionEvent) {
         saveQuery(oldName.getText(), filterText.getText());
+        users=FXCollections.observableArrayList(Utilities.consulta());
+        userView.setItems(users);
+        filtradoDeValores();
+        oldName.clear();
+        filterText.clear();
     }
 
     public void onButtonDeleteClick(ActionEvent actionEvent) {
+        deleteQuery(oldName.getText());
     }
 }
