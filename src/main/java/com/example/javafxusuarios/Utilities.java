@@ -14,7 +14,7 @@ public class Utilities {
             conexion= DriverManager.getConnection(databaseUrl, user, password);
         }  catch (SQLException e) {
             //e.printStackTrace();
-            LoginController.showAlert(Alert.AlertType.ERROR, "Form Error!",
+            showAlert(Alert.AlertType.ERROR, "Form Error!",
                     "Database connection is not avaliable con");
         }
 
@@ -60,5 +60,34 @@ public class Utilities {
         Statement stmt = null;
         String query = "DELETE FROM alumno " +
                 "WHERE nombre LIKE '" + name +"'";
+        try {
+            stmt = conexion.createStatement();
+
+            stmt.executeUpdate(query);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void insertQuery(String name, String password){
+        Statement stmt = null;
+        String query="INSERT INTO alumno(nombre, password)" +
+                "VALUES('"+name+"','"+password+"')";
+        try {
+            stmt = conexion.createStatement();
+
+            stmt.executeUpdate(query);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.show();
     }
 }

@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import static com.example.javafxusuarios.Utilities.showAlert;
+
 public class LoginController {
     @FXML
     private TextField nombre;
@@ -48,12 +50,6 @@ public class LoginController {
     }
 
 
-    public static void showAlert(Alert.AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.show();
-    }
+
 }
 
