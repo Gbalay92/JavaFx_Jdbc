@@ -8,15 +8,11 @@ import java.util.ArrayList;
 public class Utilities {
     private static String databaseUrl ="jdbc:mysql://localhost/liceo";
     private static Connection conexion;
-    public static void conexionSql(String user, String password) {
-        try {
+    public static void conexionSql(String user, String password) throws SQLException {
+
             //LoginController.showAlert(Alert.AlertType.INFORMATION, "inf", user+ " " + password);
             conexion= DriverManager.getConnection(databaseUrl, user, password);
-        }  catch (SQLException e) {
-            //e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Form Error!",
-                    "Database connection is not avaliable con");
-        }
+
 
 
     }
@@ -35,7 +31,7 @@ public class Utilities {
 
         }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
         return users;
     }
@@ -53,7 +49,6 @@ public class Utilities {
             } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
 
     }
     public static void deleteQuery(String name){

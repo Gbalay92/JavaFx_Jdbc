@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static com.example.javafxusuarios.Utilities.showAlert;
@@ -36,15 +37,21 @@ public class LoginController {
         if (password.getText().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Form Error!",
                     "Please enter a password");
-            return;
         } else {
-            Utilities.conexionSql(name, pass);
-            FXMLLoader loader = new FXMLLoader();
-            Parent root = loader.load(getClass().getResource("usersView.fxml"));
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setTitle("Users");
-            stage.setScene(new Scene(root));
-            stage.show();
+
+            try {
+                Utilities.conexionSql(name, pass);
+
+                FXMLLoader loader = new FXMLLoader();
+                Parent root = loader.load(getClass().getResource("usersView.fxml"));
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                stage.setTitle("Users");
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (SQLException e) {
+                showAlert(Alert.AlertType.ERROR, "Form Error!",
+                        "Database connection is not avaliable");
+            }
 
         }
     }
